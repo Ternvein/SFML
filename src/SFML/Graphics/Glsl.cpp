@@ -66,20 +66,20 @@ namespace priv
     ////////////////////////////////////////////////////////////
     void copyVector(const Color& source, Vector4<float>& dest)
     {
-        dest.x = source.r / 255.f;
-        dest.y = source.g / 255.f;
-        dest.z = source.b / 255.f;
-        dest.w = source.a / 255.f;
+        dest.x = source.r;
+        dest.y = source.g;
+        dest.z = source.b;
+        dest.w = source.a;
     }
 
 
     ////////////////////////////////////////////////////////////
     void copyVector(const Color& source, Vector4<int>& dest)
     {
-        dest.x = static_cast<int>(source.r);
-        dest.y = static_cast<int>(source.g);
-        dest.z = static_cast<int>(source.b);
-        dest.w = static_cast<int>(source.a);
+        dest.x = static_cast<int>(source.r * 255.0f);
+        dest.y = static_cast<int>(source.g * 255.0f);
+        dest.z = static_cast<int>(source.b * 255.0f);
+        dest.w = static_cast<int>(source.a * 255.0f);
     }
 
 } // namespace priv

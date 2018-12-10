@@ -149,7 +149,7 @@ void RenderTarget::clear(const Color& color)
         // Unbind texture to fix RenderTexture preventing clear
         applyTexture(NULL);
 
-        glCheck(glClearColor(color.r / 255.f, color.g / 255.f, color.b / 255.f, color.a / 255.f));
+        glCheck(glClearColor(color.r, color.g, color.b, color.a));
         glCheck(glClear(GL_COLOR_BUFFER_BIT));
     }
 }
@@ -299,16 +299,16 @@ void RenderTarget::draw(const Vertex* vertices, std::size_t vertexCount,
                 data = reinterpret_cast<const char*>(m_cache.vertexCache);
 
             glCheck(glVertexPointer(2, GL_FLOAT, sizeof(Vertex), data + 0));
-            glCheck(glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(Vertex), data + 8));
+            glCheck(glColorPointer(4, GL_FLOAT, sizeof(Vertex), data + 8));
             if (enableTexCoordsArray)
-                glCheck(glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), data + 12));
+                glCheck(glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), data + 24));
         }
         else if (enableTexCoordsArray && !m_cache.texCoordsArrayEnabled)
         {
             // If we enter this block, we are already using our internal vertex cache
             const char* data = reinterpret_cast<const char*>(m_cache.vertexCache);
 
-            glCheck(glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), data + 12));
+            glCheck(glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), data + 24));
         }
 
         drawPrimitives(type, 0, vertexCount);

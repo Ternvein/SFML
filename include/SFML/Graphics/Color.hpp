@@ -45,7 +45,7 @@ public:
     /// \brief Default constructor
     ///
     /// Constructs an opaque black color. It is equivalent to
-    /// sf::Color(0, 0, 0, 255).
+    /// sf::Color(0, 0, 0, 1).
     ///
     ////////////////////////////////////////////////////////////
     Color();
@@ -53,13 +53,13 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Construct the color from its 4 RGBA components
     ///
-    /// \param red   Red component (in the range [0, 255])
-    /// \param green Green component (in the range [0, 255])
-    /// \param blue  Blue component (in the range [0, 255])
-    /// \param alpha Alpha (opacity) component (in the range [0, 255])
+    /// \param red   Red component (in the range [0, 1])
+    /// \param green Green component (in the range [0, 1])
+    /// \param blue  Blue component (in the range [0, 1])
+    /// \param alpha Alpha (opacity) component (in the range [0, 1])
     ///
     ////////////////////////////////////////////////////////////
-    Color(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha = 255);
+    Color(float red, float green, float blue, float alpha = 1.0f);
 
     ////////////////////////////////////////////////////////////
     /// \brief Construct the color from 32-bit unsigned integer
@@ -93,10 +93,10 @@ public:
     ////////////////////////////////////////////////////////////
     // Member data
     ////////////////////////////////////////////////////////////
-    Uint8 r; ///< Red component
-    Uint8 g; ///< Green component
-    Uint8 b; ///< Blue component
-    Uint8 a; ///< Alpha (opacity) component
+    float r; ///< Red component
+    float g; ///< Green component
+    float b; ///< Blue component
+    float a; ///< Alpha (opacity) component
 };
 
 ////////////////////////////////////////////////////////////

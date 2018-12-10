@@ -59,21 +59,21 @@ void Image::create(unsigned int width, unsigned int height, const Color& color)
     {
         // Create a new pixel buffer first for exception safety's sake
         std::vector<Uint8> newPixels(width * height * 4);
-    
+
         // Fill it with the specified color
         Uint8* ptr = &newPixels[0];
         Uint8* end = ptr + newPixels.size();
         while (ptr < end)
         {
-            *ptr++ = color.r;
-            *ptr++ = color.g;
-            *ptr++ = color.b;
-            *ptr++ = color.a;
+            *ptr++ = static_cast<Uint8>(color.r * 255.0f);
+            *ptr++ = static_cast<Uint8>(color.g * 255.0f);
+            *ptr++ = static_cast<Uint8>(color.b * 255.0f);
+            *ptr++ = static_cast<Uint8>(color.a * 255.0f);
         }
-    
+
         // Commit the new pixel buffer
         m_pixels.swap(newPixels);
-        
+
         // Assign the new size
         m_size.x = width;
         m_size.y = height;
@@ -82,7 +82,7 @@ void Image::create(unsigned int width, unsigned int height, const Color& color)
     {
         // Dump the pixel buffer
         std::vector<Uint8>().swap(m_pixels);
-        
+
         // Assign the new size
         m_size.x = 0;
         m_size.y = 0;
@@ -97,10 +97,10 @@ void Image::create(unsigned int width, unsigned int height, const Uint8* pixels)
     {
         // Create a new pixel buffer first for exception safety's sake
         std::vector<Uint8> newPixels(pixels, pixels + width * height * 4);
-        
+
         // Commit the new pixel buffer
         m_pixels.swap(newPixels);
-        
+
         // Assign the new size
         m_size.x = width;
         m_size.y = height;
@@ -109,7 +109,7 @@ void Image::create(unsigned int width, unsigned int height, const Uint8* pixels)
     {
         // Dump the pixel buffer
         std::vector<Uint8>().swap(m_pixels);
-        
+
         // Assign the new size
         m_size.x = 0;
         m_size.y = 0;
@@ -170,9 +170,13 @@ void Image::createMaskFromColor(const Color& color, Uint8 alpha)
         // Replace the alpha of the pixels that match the transparent color
         Uint8* ptr = &m_pixels[0];
         Uint8* end = ptr + m_pixels.size();
+        Uint8 r = static_cast<Uint8>(color.r * 255.0f);
+        Uint8 g = static_cast<Uint8>(color.g * 255.0f);
+        Uint8 b = static_cast<Uint8>(color.b * 255.0f);
+        Uint8 a = static_cast<Uint8>(color.a * 255.0f);
         while (ptr < end)
         {
-            if ((ptr[0] == color.r) && (ptr[1] == color.g) && (ptr[2] == color.b) && (ptr[3] == color.a))
+            if ((ptr[0] == r) && (ptr[1] == g) && (ptr[2] == b) && (ptr[3] == a))
                 ptr[3] = alpha;
             ptr += 4;
         }
@@ -263,10 +267,10 @@ void Image::copy(const Image& source, unsigned int destX, unsigned int destY, co
 void Image::setPixel(unsigned int x, unsigned int y, const Color& color)
 {
     Uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
-    *pixel++ = color.r;
-    *pixel++ = color.g;
-    *pixel++ = color.b;
-    *pixel++ = color.a;
+    *pixel++ = static_cast<Uint8>(color.r * 255.0f);
+    *pixel++ = static_cast<Uint8>(color.g * 255.0f);
+    *pixel++ = static_cast<Uint8>(color.b * 255.0f);
+    *pixel++ = static_cast<Uint8>(color.a * 255.0f);
 }
 
 
@@ -274,7 +278,7 @@ void Image::setPixel(unsigned int x, unsigned int y, const Color& color)
 Color Image::getPixel(unsigned int x, unsigned int y) const
 {
     const Uint8* pixel = &m_pixels[(x + y * m_size.x) * 4];
-    return Color(pixel[0], pixel[1], pixel[2], pixel[3]);
+    return Color(pixel[0] / 255.0f, pixel[1] / 255.0f, pixel[2] / 255.0f, pixel[3] / 255.0f);
 }
 
 

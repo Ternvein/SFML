@@ -160,8 +160,8 @@ FloatRect Shape::getGlobalBounds() const
 Shape::Shape() :
 m_texture         (NULL),
 m_textureRect     (),
-m_fillColor       (255, 255, 255),
-m_outlineColor    (255, 255, 255),
+m_fillColor       (Color::White),
+m_outlineColor    (Color::White),
 m_outlineThickness(0),
 m_vertices        (TriangleFan),
 m_outlineVertices (TriangleStrip),

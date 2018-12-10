@@ -33,7 +33,7 @@ namespace sf
 ////////////////////////////////////////////////////////////
 Vertex::Vertex() :
 position (0, 0),
-color    (255, 255, 255),
+color    (Color::White),
 texCoords(0, 0)
 {
 }
@@ -42,7 +42,7 @@ texCoords(0, 0)
 ////////////////////////////////////////////////////////////
 Vertex::Vertex(const Vector2f& thePosition) :
 position (thePosition),
-color    (255, 255, 255),
+color    (Color::White),
 texCoords(0, 0)
 {
 }
@@ -60,7 +60,7 @@ texCoords(0, 0)
 ////////////////////////////////////////////////////////////
 Vertex::Vertex(const Vector2f& thePosition, const Vector2f& theTexCoords) :
 position (thePosition),
-color    (255, 255, 255),
+color    (Color::White),
 texCoords(theTexCoords)
 {
 }
